@@ -16,7 +16,7 @@ def print_menu():
     print("2. Run Simulation Loop")
     print("3. Analyze Mamdani Controller")
     print("4. Analyze Sugeno Controller")
-    print("5. Train RL Agent & Evolve Rules (NEW)")
+    print("5. Train RL Agent & Evolve Rules")
     print("7. Test Adaptive Parameters")
     print("8. Launch GUI")
     print("9. Exit")
