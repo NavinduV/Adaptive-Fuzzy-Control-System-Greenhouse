@@ -6,6 +6,8 @@ from adaptive_logic import AdaptiveLogic
 from fuzzy_rl import FuzzyRLAgent
 from rl_env import GreenhouseEnv
 from sugeno_controller import SugenoController
+from mamdani_controller import MamdaniController
+from plots import plot_membership_functions, plot_control_surfaces
 
 def print_menu():
     print("\n==================================================")
@@ -32,6 +34,16 @@ def main():
         elif choice == '2':
              print("--------------------------------------------------")
              run_full_simulation()
+        elif choice == '3':
+             print("Analyzing Mamdani Controller...")
+             ctrl = MamdaniController()
+             plot_membership_functions(ctrl)
+             plot_control_surfaces(ctrl)
+        elif choice == '4':
+             print("Analyzing Sugeno Controller...")
+             ctrl = SugenoController()
+             plot_membership_functions(ctrl)
+             plot_control_surfaces(ctrl)
         elif choice == '5':
              print("Initializing RL Training...")
              env = GreenhouseEnv()

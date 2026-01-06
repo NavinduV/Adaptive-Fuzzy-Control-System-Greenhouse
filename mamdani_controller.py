@@ -42,6 +42,7 @@ class MamdaniController:
             ctrl.Rule(self.temperature['warm'], self.fan['medium']),
             ctrl.Rule(self.temperature['normal'], self.fan['low']), # Maintain circulation even if normal
             ctrl.Rule(self.temperature['cold'], self.fan['low']),
+            ctrl.Rule(self.temperature['very_cold'], self.fan['low']),
             
             ctrl.Rule(self.humidity['very_dry'], self.mist['high']),
             ctrl.Rule(self.humidity['dry'], self.mist['medium']),
@@ -56,8 +57,12 @@ class MamdaniController:
     def compute(self, temp_input, hum_input):
         self.simulation.input['temperature'] = temp_input
         self.simulation.input['humidity'] = hum_input
-        self.simulation.compute()
-        return self.simulation.output['fan'], self.simulation.output['mist']
+        try:
+            self.simulation.compute()
+            return self.simulation.output['fan'], self.simulation.output['mist']
+        except Exception:
+            # Default fallback if defuzzification fails or no rules fire
+            return 0.0, 0.0
 
     def get_variables(self):
         return self.temperature, self.humidity, self.fan, self.mist
